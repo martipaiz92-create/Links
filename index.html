@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Links</title>
+  <style>
+    body {
+      background-image:url(wp8083549-dachshunds-wallpapers.jpg);
+      background-size: cover;
+      background-position: center;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #caja {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      width: 320px;
+    }
+
+    input, button {
+      margin: 5px;
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    input {
+      width: 90%;
+    }
+
+    button {
+      background: rgb(68, 87, 146);
+      color: white;
+      cursor: pointer;
+    }
+
+    a {
+      color: rgb(82, 156, 175);
+      text-decoration: none;
+    }
+
+    .link-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      border-radius: 8px;
+      margin: 8px 0;
+    }
+
+    .link-card h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .link-card a {
+      font-size: 14px;
+      display: block;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div id="caja">
+    <div id="login">
+      <h2>Iniciar sesión / Registrarse</h2>
+      <input type="text" id="usuario" placeholder="Usuario"><br>
+      <input type="password" id="password" placeholder="Contraseña"><br>
+      <button onclick="registrar()">Registrar</button>
+      <button onclick="login()">Entrar</button>
+      <p id="mensaje"></p>
+    </div>
+
+    <div id="links" style="display:none;">
+      <h2>Mis Tareas</h2>
+
+      <div class="link-card">
+        <h3>Calculadora de calculadora de medidas</h3>
+        <a href="https://martipaiz92-create.github.io/calculadora_de_medidas/" target="_blank">https://martipaiz92-create.github.io/calculadora_de_medidas/</a>
+      </div>
+      <div class="link-card">
+        <h3>Calculadora de imc</h3>
+        <a href="https://martipaiz92-create.github.io/imc/" target="_blank">https://martipaiz92-create.github.io/imc/</a>
+      </div>
+      <div class="link-card">
+        <h3>Lista de tareas</h3>
+        <a href="https://martipaiz92-create.github.io/lista-de-tareas/" target="_blank">https://martipaiz92-create.github.io/lista-de-tareas/</a>
+      </div> 
+      <div class="link-card">
+        <h3>Perfil de github</h3>
+        <a href="https://github.com/martipaiz92-create" target="_blank">https://github.com/martipaiz92-create</a>
+      </div> 
+
+      <button onclick="cerrarSesion()">Cerrar sesión</button>
+    </div>
+  </div>
+
+  <script>
+    function registrar() {
+      const u = usuario.value.trim(), p = password.value.trim();
+      if (!u || !p) return mensaje.textContent = "Completa los campos.";
+      if (localStorage.getItem(u)) mensaje.textContent = "Usuario ya existe.";
+      else {
+        localStorage.setItem(u, p);
+        mensaje.textContent = "Usuario registrado.";
+      }
+    }
+
+    function login() {
+      const u = usuario.value.trim(), p = password.value.trim();
+      if (localStorage.getItem(u) === p) {
+        localStorage.setItem("activo", u);
+        mostrarLinks();
+      } else mensaje.textContent = "Datos incorrectos.";
+    }
+
+    function mostrarLinks() {
+      loginDiv.style.display = "none";
+      links.style.display = "block";
+    }
+
+    function cerrarSesion() {
+      localStorage.removeItem("activo");
+      loginDiv.style.display = "block";
+      links.style.display = "none";
+    }
+
+    const usuario = document.getElementById("usuario"),
+          password = document.getElementById("password"),
+          mensaje = document.getElementById("mensaje"),
+          loginDiv = document.getElementById("login"),
+          links = document.getElementById("links");
+
+    if (localStorage.getItem("activo")) mostrarLinks();
+  </script>
+</body>
+</html>
